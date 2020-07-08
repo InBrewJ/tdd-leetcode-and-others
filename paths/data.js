@@ -1,9 +1,10 @@
 const express = require('express')
 const router = express.Router()
+const sensorEventsController = require('../server/controllers').sensorEvents
 
 // middleware that is specific to this router
 router.use(function timeLog(req, res, next) {
-  console.log('Time: ', Date.now())
+  // console.log('Time: ', Date.now())
   next()
 })
 
@@ -12,9 +13,6 @@ router.get('/', function (req, res) {
 })
 
 // define the about route
-router.put('/', function (req, res) {
-  res.statusMessage = 'SensorId not found'
-  res.status(400).end()
-})
+router.put('/', sensorEventsController.create)
 
 module.exports = router
