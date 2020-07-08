@@ -1,7 +1,8 @@
-//server.js
-const PORT = 8080;
-const app = require("./app");
+// server.js
+const PORT = 8080
+const APP_NAME = 'Converge Lite'
+const app = require('./app')
 
 app.listen(PORT, () => {
-  console.log(`Example app listening on port ${PORT}!`);
-});
+  console.log(`${APP_NAME} listening on port ${PORT}!`)
+})
