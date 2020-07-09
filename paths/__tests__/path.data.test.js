@@ -42,12 +42,14 @@ describe('Data path sanity checks', () => {
   })
 
   test('It should respond with a 409 (sensorId, time) pairing is not unique', async () => {
+    const oneUuid = uuidv4()
+    const oneTime = 20
     const packet = {
-      sensorId: 'c32f46e8-1802-4787-8109-d31fce0989d7',
-      time: 1,
+      sensorId: oneUuid,
+      time: oneTime,
       value: 23.23
     }
-    const firstResponse = await request(app).put('/data').send(packet)
+    await request(app).put('/data').send(packet)
     const duplicateResponse = await request(app).put('/data').send(packet)
 
     expect(duplicateResponse.statusCode).toBe(409)
