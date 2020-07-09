@@ -20,6 +20,6 @@ app.get('/', (req, res) => {
 
 app.use('/data', data)
 
-module.exports = app
-
 app.on('close', () => db.sequelize.close())
+
+module.exports = app

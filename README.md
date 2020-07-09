@@ -1,5 +1,25 @@
 # Converge Lite: Converge.io backend-exercise-0.2.3
 
+- This was written on an Ubuntu 20.04 LTS based machine
+- Install/run scripts will work in bash shells running on Debian-like/MacOS machines
+- They will likely not run on Windows (my apologies)
+
+## Install
+
+```
+$ ./bin/install.sh && npm i
+```
+
+Extra things this script does:
+
+- installs Docker
+
+## Run + Test (with Jest)
+
+```
+$ npm run seed && npm run test
+```
+
 ## Stack
 
 - JS as supported by node 12.16.3
