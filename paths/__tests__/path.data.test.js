@@ -2,13 +2,6 @@ const request = require('supertest')
 const app = require('../../app')
 const { v4: uuidv4 } = require('uuid')
 
-// ideal packet:
-// {
-//   sensorId: uuidv4(),
-//   time: 0,
-//   value: 23.23
-// }
-
 const generateRandomPacket = () => {
   return {
     sensorId: uuidv4(),
@@ -21,6 +14,14 @@ const constantSensorIdPacket = (uuid) => {
   return {
     sensorId: uuid,
     time: Date.now(),
+    value: 123.45
+  }
+}
+
+const constantSensorIdPacketWithTime = (uuid, time) => {
+  return {
+    sensorId: uuid,
+    time,
     value: 123.45
   }
 }
@@ -89,7 +90,7 @@ describe('/data path GET sanity checks', () => {
     expect(sensorEvents.length).toBeGreaterThan(0)
   })
 
-  test('It should return correct sensor events with a sensorId parameters', async () => {
+  test('It should return correct sensor events with a sensorId query', async () => {
     // Add two events from with the same sensor id
     const sensorIdUnderTest = uuidv4()
 
@@ -113,5 +114,63 @@ describe('/data path GET sanity checks', () => {
     const { body: sensorEvents } = response
 
     expect(sensorEvents.length).toBe(2)
+  })
+
+  test('It should return correct sensor events with a [since] query', async () => {
+    // Add two events from with the same sensor id
+    const sensorIdUnderTest = uuidv4()
+    const since = 30
+
+    await request(app)
+      .put('/data')
+      .send(constantSensorIdPacketWithTime(sensorIdUnderTest, 0))
+
+    await request(app)
+      .put('/data')
+      .send(constantSensorIdPacketWithTime(sensorIdUnderTest, 20))
+
+    await request(app)
+      .put('/data')
+      .send(constantSensorIdPacketWithTime(sensorIdUnderTest, 30))
+
+    await request(app)
+      .put('/data')
+      .send(constantSensorIdPacketWithTime(sensorIdUnderTest, 123))
+
+    const response = await request(app).get(
+      `/data?sensorId=${sensorIdUnderTest}&since=${since}`
+    )
+    const { body: sensorEvents } = response
+
+    expect(sensorEvents.length).toBe(2)
+  })
+
+  test('It should return correct sensor events with a [until] query', async () => {
+    // Add two events from with the same sensor id
+    const sensorIdUnderTest = uuidv4()
+    const until = 35
+
+    await request(app)
+      .put('/data')
+      .send(constantSensorIdPacketWithTime(sensorIdUnderTest, 0))
+
+    await request(app)
+      .put('/data')
+      .send(constantSensorIdPacketWithTime(sensorIdUnderTest, 20))
+
+    await request(app)
+      .put('/data')
+      .send(constantSensorIdPacketWithTime(sensorIdUnderTest, 30))
+
+    await request(app)
+      .put('/data')
+      .send(constantSensorIdPacketWithTime(sensorIdUnderTest, 123))
+
+    const response = await request(app).get(
+      `/data?sensorId=${sensorIdUnderTest}&until=${until}`
+    )
+    const { body: sensorEvents } = response
+
+    expect(sensorEvents.length).toBe(3)
   })
 })

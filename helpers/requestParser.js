@@ -1,17 +1,50 @@
+const { Op } = require('sequelize')
 const SUPPORTED_PARAMS = ['sensorId', 'since', 'until']
 
-const getParams = (req) => {}
+const processQueryParams = (req = {}) => {
+  const { query = null } = req
+  if (!query) return undefined
 
-const requestToFilter = (req) => {
-  const { sensorId = null } = req.query || {}
+  const clauses = SUPPORTED_PARAMS.map((param) => {
+    if (param in query) {
+      switch (param) {
+        case 'sensorId':
+          return {
+            sensorId: query[param]
+          }
+        case 'since':
+          return {
+            time: {
+              [Op.gte]: query[param]
+            }
+          }
+        case 'until':
+          return {
+            time: {
+              [Op.lte]: query[param]
+            }
+          }
+      }
+    }
+  }).filter(Boolean)
 
-  return sensorId
+  if (clauses.length > 1) {
+    return {
+      where: {
+        [Op.and]: clauses
+      }
+    }
+  }
+
+  return clauses.length
     ? {
-        where: {
-          sensorId: sensorId
-        }
+        where: clauses[0]
       }
     : undefined
+}
+
+const requestToFilter = (req) => {
+  return processQueryParams(req)
 }
 
 module.exports = {
