@@ -1,6 +1,13 @@
 const request = require('supertest')
 const app = require('../../app')
 const { v4: uuidv4 } = require('uuid')
+const sequelize = require('sequelize')
+const db = require('../../server/models')
+
+// to close the db connection properly
+afterAll(() => {
+  db.sequelize.close()
+})
 
 const generateRandomPacket = () => {
   return {
