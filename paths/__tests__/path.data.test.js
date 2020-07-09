@@ -9,6 +9,22 @@ const { v4: uuidv4 } = require('uuid')
 //   value: 23.23
 // }
 
+const generateRandomPacket = () => {
+  return {
+    sensorId: uuidv4(),
+    time: Date.now(),
+    value: 123.45
+  }
+}
+
+const constantSensorIdPacket = (uuid) => {
+  return {
+    sensorId: uuid,
+    time: Date.now(),
+    value: 123.45
+  }
+}
+
 describe('/data path PUT sanity checks', () => {
   test('It should respond with a 400 if there is no sensorId field', async () => {
     const packet = {
@@ -71,5 +87,31 @@ describe('/data path GET sanity checks', () => {
     const { body: sensorEvents } = response
 
     expect(sensorEvents.length).toBeGreaterThan(0)
+  })
+
+  test('It should return correct sensor events with a sensorId parameters', async () => {
+    // Add two events from with the same sensor id
+    const sensorIdUnderTest = uuidv4()
+
+    await request(app)
+      .put('/data')
+      .send(constantSensorIdPacket(sensorIdUnderTest))
+    await request(app)
+      .put('/data')
+      .send(constantSensorIdPacket(sensorIdUnderTest))
+
+    // Add four random packets
+
+    await request(app).put('/data').send(generateRandomPacket())
+    await request(app).put('/data').send(generateRandomPacket())
+    await request(app).put('/data').send(generateRandomPacket())
+    await request(app).put('/data').send(generateRandomPacket())
+
+    const response = await request(app).get(
+      `/data?sensorId=${sensorIdUnderTest}`
+    )
+    const { body: sensorEvents } = response
+
+    expect(sensorEvents.length).toBe(2)
   })
 })

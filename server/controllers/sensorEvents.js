@@ -1,3 +1,4 @@
+const { requestToFilter } = require('../../helpers/requestParser')
 const SensorEvents = require('../models').t_sensor_events
 const errorHandler = require('../../helpers/errorHandler').errorHandler
 
@@ -22,9 +23,8 @@ function put(req, res) {
 }
 
 function get(req, res) {
-  console.log('Getting...')
-
-  return SensorEvents.findAll()
+  const filter = requestToFilter(req)
+  return SensorEvents.findAll(filter)
     .then((sensorEvents) => res.status(200).send(sensorEvents))
     .catch((error) => errorHandler(error, res))
 }
