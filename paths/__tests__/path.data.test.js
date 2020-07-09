@@ -21,7 +21,7 @@ const constantSensorIdPacket = (uuid) => {
 const constantSensorIdPacketWithTime = (uuid, time) => {
   return {
     sensorId: uuid,
-    time,
+    time: +time,
     value: 123.45
   }
 }
@@ -114,6 +114,29 @@ describe('/data path GET sanity checks', () => {
     const { body: sensorEvents } = response
 
     expect(sensorEvents.length).toBe(2)
+  })
+
+  test('it should return json', async () => {
+    const sensorIdUnderTest = uuidv4()
+    const packet = constantSensorIdPacketWithTime(sensorIdUnderTest, 1000)
+
+    await request(app).put('/data').send(packet)
+
+    const response = await request(app).get(
+      `/data?sensorId=${sensorIdUnderTest}`
+    )
+
+    const { body: sensorEvents } = response
+
+    // Time is a string because it's a bigint!
+
+    expect(sensorEvents[0]).toEqual(
+      expect.objectContaining({
+        sensorId: packet.sensorId,
+        time: packet.time.toString(),
+        value: packet.value
+      })
+    )
   })
 
   test('It should return correct sensor events with a [since] query', async () => {
