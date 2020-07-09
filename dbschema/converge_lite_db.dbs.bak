@@ -422,7 +422,7 @@
 		<entity schema="public" name="SequelizeMeta" color="BED3F4" x="48" y="48" />
 		<entity schema="public" name="t_sensor_events" color="BED3F4" x="208" y="48" />
 		<browser id="Browse_764" name="t_sensor_events" confirm_updates="y" >
-			<browse_table schema="public" entity="t_sensor_events" x="20" y="20" width="400" height="300" />
+			<browse_table schema="public" entity="t_sensor_events" x="20" y="20" width="810" height="284" />
 		</browser>
 	</layout>
 </project>

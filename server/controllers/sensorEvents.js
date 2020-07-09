@@ -1,20 +1,23 @@
 const SensorEvent = require('../models').t_sensor_events
+const errorHandler = require('../../helpers/errorHandler').errorHandler
 
 module.exports = {
   create(req, res) {
     const { sensorId = null, time = null, value = null } = req.body
 
     if (time === null || sensorId === null) {
+      // needs to return json, I believe
+      // needs a generic error handler
       res.status(400).send('Corrupt packet')
       done()
     }
 
     return SensorEvent.create({
-      sensorId: req.body.sensorId,
-      time: req.body.time,
-      value: req.body.value
+      sensorId,
+      time,
+      value
     })
       .then((sensorEvent) => res.status(204).send(sensorEvent))
-      .catch((error) => res.status(400).send(error))
+      .catch((error) => errorHandler(error, res))
   }
 }

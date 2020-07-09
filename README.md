@@ -7,7 +7,7 @@
 - Timescale (based on Postgres - runs in Docker)
 
 ```
-docker run -d --name timescaledb -p 5432:5432 -e POSTGRES_PASSWORD=password timescale/timescaledb:latest-pg12
+docker run -d --rm --name timescaledb -p 5432:5432 -e POSTGRES_PASSWORD=password timescale/timescaledb:latest-pg12
 ```
 
 ## Tools
@@ -23,11 +23,6 @@ sequelize model:create --name t_sensor_events --attributes sensorId:string,time:
 
 ```
 sequelize db:migrate
-```
-
-and in the test db:
-
-```
 NODE_ENV=test sequelize db:migrate
 ```
 
@@ -36,5 +31,10 @@ NODE_ENV=test sequelize db:migrate
 ### Creating the dev database
 
 ```
+CREATE DATABASE converge_lite_test;
 CREATE DATABASE converge_lite_development;
 ```
+
+## One approach for the 409
+
+ALTER TABLE "public".t_sensor_events ADD CONSTRAINT unq_t_sensor_events UNIQUE ( "sensorId", "time" );
