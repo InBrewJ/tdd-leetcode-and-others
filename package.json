@@ -3,9 +3,11 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node server.js",
+    "start": "bin/run_pg.sh && node server.js",
     "watch": "nodemon server.js",
+    "seed": "bin/run_pg.sh && bin/seed_db.sh",
     "test": "jest",
+    "sequelize": "sequelize",
     "test:coverage": "jest --collectCoverage"
   },
   "jest": {
@@ -32,6 +34,7 @@
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "jest": "^26.1.0",
+    "sequelize-cli": "^6.2.0",
     "superagent": "^5.3.1",
     "supertest": "^4.0.2"
   }
