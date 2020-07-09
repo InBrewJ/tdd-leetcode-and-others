@@ -8,11 +8,9 @@ router.use(function timeLog(req, res, next) {
   next()
 })
 
-router.get('/', function (req, res) {
-  res.send('Data path goes here')
-})
+router.get('/', sensorEventsController.get)
 
 // define the about route
-router.put('/', sensorEventsController.create)
+router.put('/', sensorEventsController.put)
 
 module.exports = router

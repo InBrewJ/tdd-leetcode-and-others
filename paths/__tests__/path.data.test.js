@@ -9,7 +9,7 @@ const { v4: uuidv4 } = require('uuid')
 //   value: 23.23
 // }
 
-describe('Data path sanity checks', () => {
+describe('/data path PUT sanity checks', () => {
   test('It should respond with a 400 if there is no sensorId field', async () => {
     const packet = {
       time: 1,
@@ -33,7 +33,7 @@ describe('Data path sanity checks', () => {
   test('It should respond with a 204 if the packet structure is valid and the data was saved successfully', async () => {
     const packet = {
       sensorId: uuidv4(),
-      time: 1,
+      time: Date.now(),
       value: 23.23
     }
     const response = await request(app).put('/data').send(packet)
@@ -53,5 +53,23 @@ describe('Data path sanity checks', () => {
     const duplicateResponse = await request(app).put('/data').send(packet)
 
     expect(duplicateResponse.statusCode).toBe(409)
+  })
+})
+
+describe('/data path GET sanity checks', () => {
+  test('It should return all sensor events with no parameters', async () => {
+    // Add at least one event
+
+    const packet = {
+      sensorId: uuidv4(),
+      time: Date.now(),
+      value: 23.23
+    }
+    await request(app).put('/data').send(packet)
+
+    const response = await request(app).get('/data')
+    const { body: sensorEvents } = response
+
+    expect(sensorEvents.length).toBeGreaterThan(0)
   })
 })

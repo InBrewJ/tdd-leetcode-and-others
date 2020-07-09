@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('t_sensor_events', {
@@ -12,7 +12,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       time: {
-        type: Sequelize.INTEGER
+        type: Sequelize.BIGINT
       },
       value: {
         type: Sequelize.FLOAT
@@ -25,9 +25,9 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
-    });
+    })
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('t_sensor_events');
+    await queryInterface.dropTable('t_sensor_events')
   }
-};
+}
