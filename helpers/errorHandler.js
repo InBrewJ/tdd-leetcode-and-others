@@ -15,7 +15,6 @@ const errorParser = (errors) => {
 }
 
 const errorHandler = (error, res) => {
-  //   console.error('Error: ', error.errors)
   const { errors = [] } = error
   const { code, message } = errorParser(errors)
   res.status(code).send(message)

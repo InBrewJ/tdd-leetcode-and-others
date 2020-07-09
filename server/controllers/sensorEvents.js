@@ -8,6 +8,7 @@ module.exports = {
     if (time === null || sensorId === null) {
       // needs to return json, I believe
       // needs a generic error handler
+      // use the packetParser
       res.status(400).send('Corrupt packet')
       done()
     }
