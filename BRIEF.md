@@ -27,11 +27,11 @@ following request body:
 
 This endpoint should exhibit the following behaviour:
 
-* Return error 400 if the packet does not contain `sensorId`;
-* Return error 400 if the packet does not contain `time`;
-* Return error 409 if the packet is a duplicate  - `(sensorId, time)` pairings should
+- Return error 400 if the packet does not contain `sensorId`;
+- Return error 400 if the packet does not contain `time`;
+- Return error 409 if the packet is a duplicate - `(sensorId, time)` pairings should
   be unique;
-* Return 204 if the packet structure is valid, and the packet was successfully
+- Return 204 if the packet structure is valid, and the packet was successfully
   stored in the persistent storage.
 
 ## Part two: retrieving data
@@ -46,9 +46,9 @@ endpoint would be:
 
 With parameters:
 
-* `sensorId`: the sensor id for which to query data;
-* `since`: a lower bound on the time of the data;
-* `until`: an upper bound on the time of the data.
+- `sensorId`: the sensor id for which to query data;
+- `since`: a lower bound on the time of the data;
+- `until`: an upper bound on the time of the data.
 
 ## Part three: threshold alerts
 
@@ -67,7 +67,7 @@ using the basic `npm` commands `npm install` and `npm start`.
 ## Included files
 
 1. README.md (this file)
-3. package.json
+2. package.json
 
 ## Questions etc.
 

@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
   t_sensor_events.init(
     {
       sensorId: DataTypes.STRING,
-      time: DataTypes.INTEGER,
+      time: DataTypes.BIGINT,
       value: DataTypes.FLOAT
     },
     {
