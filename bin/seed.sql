@@ -1,0 +1,2 @@
+CREATE DATABASE converge_lite_test;
+CREATE DATABASE converge_lite_development;
