@@ -33,16 +33,32 @@ docker run -d --rm --name timescaledb -p 5432:5432 -e POSTGRES_PASSWORD=password
 ## Tools
 
 - Sequelize
-- Created the table with:
+
+- Undo migrations with:
 
 ```
-sequelize model:create --name t_sensor_events --attributes sensorId:string,time:integer,value:float
+sequelize db:migrate:undo:all && \
+NODE_ENV=test sequelize db:migrate:undo:all
+```
+
+- Created t_sensor_events with:
+
+```
+sequelize model:create --name t_sensor_events \
+--attributes sensorId:string,time:integer,value:float,alert_high:float,alert_low:float
+```
+
+- Created t_sensor_alerts with:
+
+```
+sequelize model:create --name t_sensor_alerts \
+--attributes sensorId:string,method:string,destination:string
 ```
 
 - Run migrations with:
 
 ```
-sequelize db:migrate
+sequelize db:migrate && \
 NODE_ENV=test sequelize db:migrate
 ```
 

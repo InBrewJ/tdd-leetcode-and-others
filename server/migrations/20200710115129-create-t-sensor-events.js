@@ -17,6 +17,12 @@ module.exports = {
       value: {
         type: Sequelize.FLOAT
       },
+      alert_high: {
+        type: Sequelize.FLOAT
+      },
+      alert_low: {
+        type: Sequelize.FLOAT
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
