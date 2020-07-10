@@ -1,6 +1,10 @@
 {
   "name": "backend-exercise-0.2.3",
   "version": "0.0.1",
+  "engines": {
+    "node": ">=12.0.0",
+    "npm": ">=6.0.0"
+  },
   "private": true,
   "scripts": {
     "start": "bin/run_pg.sh && NODE_ENV=development node server.js",
@@ -10,15 +14,24 @@
     "test": "jest",
     "sequelize": "sequelize",
     "test:coverage": "jest --collectCoverage",
-    "wait-port": "wait-port"
+    "wait-port": "wait-port",
+    "make-badges": "node_modules/.bin/jest-badges-readme",
+    "make-readme": "npm run test:coverage && npm run make-badges"
   },
   "jest": {
     "testEnvironment": "node",
     "coveragePathIgnorePatterns": [
       "/node_modules/"
-    ]
+    ],
+    "coverageReporters": [
+      "json-summary",
+      "text",
+      "lcov"
+    ],
+    "collectCoverage": true
   },
   "dependencies": {
+    "@olavoparno/jest-badges-readme": "^1.5.1",
     "body-parser": "^1.19.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
@@ -31,6 +44,7 @@
     "nodemon": "^2.0.4",
     "pg": "^8.2.2",
     "pg-hstore": "^2.3.3",
+    "save-dev": "0.0.1-security",
     "sequelize": "^6.3.0",
     "uuid": "^8.2.0",
     "wait-port": "^0.2.9"

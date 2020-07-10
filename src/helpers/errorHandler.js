@@ -3,14 +3,14 @@ const errorParser = (errors) => {
     if (errors[0].type === 'unique violation') {
       return {
         code: 409,
-        message: '(sensorId, time) must be unique'
+        message: { res: '(sensorId, time) must be unique' }
       }
     }
   } catch (error) {
     console.error('Full error: ', error)
     return {
       code: 400,
-      message: 'Packet is corrupt'
+      message: { res: 'Packet may be corrupted' }
     }
   }
 }

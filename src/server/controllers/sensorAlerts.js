@@ -15,7 +15,7 @@ function put(req, res) {
     // needs to return json, I believe
     // needs a generic error handler
     // use the packetParser
-    res.status(400).send('Alerts: Corrupt packet')
+    res.status(400).send({ res: 'Alerts: Corrupt packet' })
     return
   }
 
