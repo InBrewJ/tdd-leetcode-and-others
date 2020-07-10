@@ -441,7 +441,7 @@
 	<connector name="converge_lite_test" database="PostgreSQL" driver_class="org.postgresql.Driver" driver_jar="postgresql-42.2.14.jar" driver_desc="Standard" host="localhost" port="5432" instance="converge_lite_test" user="postgres" passwd="cGFzc3dvcmQ=" />
 	<layout name="Default Layout" id="Layout_137c" show_relation="columns" >
 		<entity schema="public" name="SequelizeMeta" color="BED3F4" x="48" y="64" />
-		<entity schema="public" name="t_sensor_alerts" color="3986C1" x="352" y="48" />
+		<entity schema="public" name="t_sensor_alerts" color="3986C1" x="416" y="48" />
 		<entity schema="public" name="t_sensor_events" color="BED3F4" x="192" y="64" />
 		<script name="SQL_Editor" id="Editor_682" language="SQL" >
 			<string><![CDATA[SELECT "id", "sensorId", "time", "value", "createdAt", "updatedAt" FROM "t_sensor_events" AS "t_sensor_events";]]></string>
