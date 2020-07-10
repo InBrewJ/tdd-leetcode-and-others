@@ -4,6 +4,13 @@
 - Install/run scripts will work in bash shells running on Debian-like/MacOS machines
 - They will likely not run on Windows (my apologies)
 
+## Stack
+
+- JS as supported by node 12.16.3
+- Testing with Jest + Supertest
+- ORM with Sequelize
+- Postgres (running in Docker)
+
 ## Install
 
 ```
@@ -19,12 +26,6 @@ Extra things this script does:
 ```
 $ npm run seed && npm run test
 ```
-
-## Stack
-
-- JS as supported by node 12.16.3
-- Testing with Jest + Supertest
-- Timescale (based on Postgres - runs in Docker)
 
 ```
 docker run -d --rm --name timescaledb -p 5432:5432 -e POSTGRES_PASSWORD=password timescale/timescaledb:latest-pg12
