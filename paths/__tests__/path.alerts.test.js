@@ -20,7 +20,7 @@ describe('/alert path PUT sanity checks', () => {
       method: 'email',
       destination: 'jason.brewer101@gmail.com'
     }
-    const response = await request(app).put('/alert').send(packet)
+    const response = await request(app).put('/alerts').send(packet)
 
     expect(response.statusCode).toBe(204)
   })

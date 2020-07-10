@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "bin/run_pg.sh && node server.js",
-    "watch": "nodemon server.js",
+    "watch": "bin/run_pg.sh && nodemon server.js",
     "seed": "bin/run_pg.sh && bin/seed_db.sh",
     "test": "jest",
     "sequelize": "sequelize",

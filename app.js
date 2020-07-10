@@ -5,6 +5,7 @@ const logger = require('morgan')
 
 const app = express()
 const data = require('./paths/data')
+const alerts = require('./paths/alerts')
 const db = require('./server/models')
 
 // Log requests to the console.
@@ -19,6 +20,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/data', data)
+app.use('/alerts', alerts)
 
 app.on('close', () => db.sequelize.close())
 

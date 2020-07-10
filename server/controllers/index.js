@@ -1,7 +1,7 @@
 const sensorEvents = require('./sensorEvents')
-const alerts = require('./alerts')
+const sensorAlerts = require('./sensorAlerts')
 
 module.exports = {
   sensorEvents,
-  alerts
+  sensorAlerts
 }

@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const alertsController = require('../server/controllers').alerts
+const sensorAlertsController = require('../server/controllers').sensorAlerts
 
 // any middleware goes here
 router.use(function timeLog(req, res, next) {
@@ -8,7 +8,7 @@ router.use(function timeLog(req, res, next) {
   next()
 })
 
-router.get('/', alertsController.get)
-router.put('/', alertsController.put)
+router.get('/', sensorAlertsController.get)
+router.put('/', sensorAlertsController.put)
 
 module.exports = router
