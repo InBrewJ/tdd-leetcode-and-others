@@ -15,7 +15,9 @@ module.exports = (sequelize, DataTypes) => {
     {
       sensorId: DataTypes.STRING,
       method: DataTypes.STRING,
-      destination: DataTypes.STRING
+      destination: DataTypes.STRING,
+      alertHigh: DataTypes.FLOAT,
+      alertLow: DataTypes.FLOAT
     },
     {
       sequelize,

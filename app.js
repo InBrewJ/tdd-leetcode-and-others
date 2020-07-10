@@ -1,4 +1,3 @@
-//app.js
 const express = require('express')
 const bodyParser = require('body-parser')
 const logger = require('morgan')
@@ -7,6 +6,16 @@ const app = express()
 const data = require('./paths/data')
 const alerts = require('./paths/alerts')
 const db = require('./server/models')
+
+// The only environment varibles currently supported in a top level
+// .env are used for the emailOut alert destination
+// When running the server with through Jest, an ethereal.email
+// account is used, see:
+// https://nodemailer.com/about/
+
+if (process.env.NODE_ENV === 'development') {
+  require('dotenv').config()
+}
 
 // Log requests to the console.
 app.use(logger('dev'))

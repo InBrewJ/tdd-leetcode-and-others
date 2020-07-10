@@ -7,6 +7,7 @@ const errorParser = (errors) => {
       }
     }
   } catch (error) {
+    console.error('Full error: ', error)
     return {
       code: 400,
       message: 'Packet is corrupt'

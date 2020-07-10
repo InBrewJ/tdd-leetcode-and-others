@@ -1,6 +1,15 @@
 const { requestToFilter } = require('../../helpers/requestParser')
 const SensorEvents = require('../models').t_sensor_events
 const errorHandler = require('../../helpers/errorHandler').errorHandler
+const { withAlert } = require('../../providers/alertProvider')
+
+const addSensorEvent = (sensorId, time, value) => {
+  return SensorEvents.create({
+    sensorId,
+    time,
+    value
+  })
+}
 
 function put(req, res) {
   const { sensorId = null, time = null, value = null } = req.body
@@ -13,11 +22,7 @@ function put(req, res) {
     return
   }
 
-  return SensorEvents.create({
-    sensorId,
-    time,
-    value
-  })
+  return withAlert(sensorId, time, value, addSensorEvent)
     .then((sensorEvent) => res.status(204).send(sensorEvent))
     .catch((error) => errorHandler(error, res))
 }
