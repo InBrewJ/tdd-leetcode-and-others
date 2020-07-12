@@ -1,4 +1,4 @@
-# Converge Lite: Converge.io backend-exercise-0.2.3
+# Converge Lite
 
 (all credit to [this source](https://medium.com/@olavoandrparno/do-your-own-readme-jest-coverage-badges-f5b9189edb37)) for this coverage report:
 
