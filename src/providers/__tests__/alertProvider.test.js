@@ -22,7 +22,7 @@ const alertReturnedUnsupportedMethod = {
   alertLow: 0
 }
 
-describe('alertProvider sanity', async () => {
+describe('alertProvider sanity', () => {
   test('it should return the callback assigned to it', async () => {
     const _sensorId = 'be-ace'
     const res = await withAlert(_sensorId, null, null, cb0)
@@ -30,7 +30,7 @@ describe('alertProvider sanity', async () => {
   })
 })
 
-describe('handleAlert: email', async () => {
+describe('handleAlert: email', () => {
   test('When the value is between low and high, do not send an email', async () => {
     const value = 50
     const res = await handleAlert(value, alertReturned)
