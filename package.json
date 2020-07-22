@@ -27,8 +27,7 @@
       "json-summary",
       "text",
       "lcov"
-    ],
-    "collectCoverage": true
+    ]
   },
   "dependencies": {
     "@olavoparno/jest-badges-readme": "^1.5.1",

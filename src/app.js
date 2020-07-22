@@ -3,8 +3,7 @@ const bodyParser = require('body-parser')
 const logger = require('morgan')
 
 const app = express()
-const data = require('./paths/data')
-const alerts = require('./paths/alerts')
+const addressByPostcode = require('./paths/addressByPostcode')
 const db = require('./server/models')
 
 // The only environment varibles currently supported in a top level
@@ -25,11 +24,10 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
 app.get('/', (req, res) => {
-  res.status(200).send('Welcome to Converge Lite!')
+  res.status(200).send('Welcome to LBH Address')
 })
 
-app.use('/data', data)
-app.use('/alerts', alerts)
+app.use('/addressByPostcode', addressByPostcode)
 
 app.on('close', () => db.sequelize.close())
 
