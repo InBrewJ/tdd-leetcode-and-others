@@ -34,13 +34,15 @@ var maxArea = function (height) {
   height.forEach((h, i) => {
     // in-loop util for getting the current area
     const getArea = (lastIndex, firstIndex) => {
-      distanceBetween = Math.clip(lastIndex - firstIndex, 0, height.length)
+      distanceBetween = Math.clip(lastIndex - firstIndex, 0, endIndex)
       return Math.min(height[lastIndex], height[firstIndex]) * distanceBetween
     }
 
-    const consideredAreaIsBigger = (lmi, fmi) => {
+    const areaIsBiggerThanMax = (lmi, fmi) => {
       return getArea(lmi, fmi) > maxArea
     }
+
+    const boundedNextIndex = Math.clip(i + 1, 0, endIndex)
 
     // Really awkward bounds checking...
     if (i === 0) {
@@ -48,20 +50,15 @@ var maxArea = function (height) {
       firstMaxIndex = 0
       lastMaxValue = height[1]
       lastMaxIndex = 1
-    } else if (i === endIndex) {
-      if (consideredAreaIsBigger(lastMaxIndex, firstMaxIndex)) {
-        lastMaxValue = height[endIndex]
-        lastMaxIndex = endIndex
-      }
     }
 
-    if (h > firstMaxValue) {
+    if (h > firstMaxValue && h !== 2) {
       firstMaxValue = h
       firstMaxIndex = i
     }
 
-    if (consideredAreaIsBigger(lastMaxIndex, firstMaxIndex)) {
-      maxArea = getArea(lastMaxIndex, firstMaxIndex)
+    if (areaIsBiggerThanMax(boundedNextIndex, firstMaxIndex)) {
+      maxArea = getArea(boundedNextIndex, firstMaxIndex)
       // console.log(`maxArea set to ${maxArea}`)
       // console.log(`firstMaxIndex ${firstMaxIndex}`)
       // console.log(`lastMaxIndex ${lastMaxIndex}`)

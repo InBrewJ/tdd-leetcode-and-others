@@ -13,7 +13,7 @@ describe('HelloLBHer', () => {
 })
 
 describe.only('"Container With Most Water" from LeetCode', () => {
-  test.only('[1, 8, 6, 2, 5, 4, 8, 3, 7] should return 49', () => {
+  test('[1, 8, 6, 2, 5, 4, 8, 3, 7] should return 49', () => {
     const heights = [1, 8, 6, 2, 5, 4, 8, 3, 7]
     expect(maxArea(heights)).toEqual(49)
   })
@@ -38,7 +38,7 @@ describe.only('"Container With Most Water" from LeetCode', () => {
     expect(maxArea(heights)).toEqual(16)
   })
 
-  test.only('[1,2,1] should return 2', () => {
+  test('[1,2,1] should return 2', () => {
     const heights = [1, 2, 1]
     expect(maxArea(heights)).toEqual(2)
   })
