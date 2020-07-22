@@ -1,6 +1,6 @@
 // server.js
 const PORT = 8080
-const APP_NAME = 'Converge Lite'
+const APP_NAME = 'Postcode finder'
 const app = require('./src/app')
 
 app.listen(PORT, () => {

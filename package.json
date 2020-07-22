@@ -7,10 +7,9 @@
   },
   "private": true,
   "scripts": {
-    "start": "bin/run_pg.sh && NODE_ENV=development node server.js",
-    "watch": "bin/run_pg.sh && NODE_ENV=development nodemon server.js",
-    "watch:test": "bin/run_pg.sh && NODE_ENV=test nodemon server.js",
-    "seed": "bin/run_pg.sh && bin/seed_db.sh",
+    "start": "NODE_ENV=development node server.js",
+    "watch": "NODE_ENV=development nodemon server.js",
+    "watch:test": "NODE_ENV=test nodemon server.js",
     "test": "jest",
     "sequelize": "sequelize",
     "test:coverage": "jest --collectCoverage",
