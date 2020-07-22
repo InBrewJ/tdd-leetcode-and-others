@@ -1,18 +1,6 @@
-const { adder, HelloLBHer, maxArea } = require('../utils')
+const { maxArea } = require('../utils')
 
-describe('Adder', () => {
-  test('it should add things properly', () => {
-    expect(adder(1, 2)).toEqual(3)
-  })
-})
-
-describe('HelloLBHer', () => {
-  test('it should say hi', () => {
-    expect(HelloLBHer()).toEqual('Hey, LBH')
-  })
-})
-
-describe.only('"Container With Most Water" from LeetCode', () => {
+describe('"Container With Most Water" from LeetCode', () => {
   test('[1, 8, 6, 2, 5, 4, 8, 3, 7] should return 49', () => {
     const heights = [1, 8, 6, 2, 5, 4, 8, 3, 7]
     expect(maxArea(heights)).toEqual(49)

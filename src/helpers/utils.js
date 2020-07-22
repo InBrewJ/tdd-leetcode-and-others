@@ -1,11 +1,3 @@
-const adder = (a, b) => {
-  return a + b
-}
-
-const HelloLBHer = () => {
-  return 'Hey, LBH'
-}
-
 Math.clip = function (number, min, max) {
   return Math.max(min, Math.min(number, max))
 }
@@ -23,54 +15,30 @@ var maxArea = function (height) {
   // Find first max in the array
   // From ltr, find the next max
 
-  let firstMaxIndex = 0
-  let lastMaxIndex = 0
-  let firstMaxValue = 0
-  let lastMaxValue = 0
-  let distanceBetween = 0
-  let maxArea = 0
-  const endIndex = height.length - 1
+  const endIndex = height.length
+  let areas = []
 
-  height.forEach((h, i) => {
-    // in-loop util for getting the current area
-    const getArea = (lastIndex, firstIndex) => {
-      distanceBetween = Math.clip(lastIndex - firstIndex, 0, endIndex)
-      return Math.min(height[lastIndex], height[firstIndex]) * distanceBetween
+  const getArea = (left, right) => {
+    const distanceBetween = right - left
+    return Math.min(height[left], height[right]) * distanceBetween
+  }
+
+  // const getArea = (lastIndex, firstIndex) => {
+  //   distanceBetween = Math.clip(lastIndex - firstIndex, 0, endIndex)
+  //   return Math.min(height[lastIndex], height[firstIndex]) * distanceBetween
+  // }
+
+  for (let l = 0; l < endIndex; l++) {
+    for (let r = l + 1; r < endIndex; r++) {
+      areas.push(getArea(l, r))
     }
+  }
 
-    const areaIsBiggerThanMax = (lmi, fmi) => {
-      return getArea(lmi, fmi) > maxArea
-    }
+  console.log('areas :: ', areas)
 
-    const boundedNextIndex = Math.clip(i + 1, 0, endIndex)
-
-    // Really awkward bounds checking...
-    if (i === 0) {
-      firstMaxValue = h
-      firstMaxIndex = 0
-      lastMaxValue = height[1]
-      lastMaxIndex = 1
-    }
-
-    if (h > firstMaxValue && h !== 2) {
-      firstMaxValue = h
-      firstMaxIndex = i
-    }
-
-    if (areaIsBiggerThanMax(boundedNextIndex, firstMaxIndex)) {
-      maxArea = getArea(boundedNextIndex, firstMaxIndex)
-      // console.log(`maxArea set to ${maxArea}`)
-      // console.log(`firstMaxIndex ${firstMaxIndex}`)
-      // console.log(`lastMaxIndex ${lastMaxIndex}`)
-      // console.log(`height ${height}`)
-    }
-  })
-
-  return maxArea
+  return Math.max(...areas)
 }
 
 module.exports = {
-  adder,
-  HelloLBHer,
   maxArea
 }
