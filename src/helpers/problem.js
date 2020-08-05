@@ -38,14 +38,11 @@ const valueByPathFor = (input = {}, path) => {
 }
 
 const valueByPathReduce = (input = {}, path = "") => {
-    // split the path by the .
-    const searchKeys = path.split('.')
-
-    return searchKeys.reduce((accObject, searchKey, i) => {
-        const lastSearchKey = i === searchKeys.length-1
+    return path.split('.').reduce((accObject, searchKey, i, searchKeys) => {
+        const lastSearchKey = i === searchKeys.length - 1
         const thisValue = accObject[searchKey]
-        if (lastSearchKey && thisValue) return thisValue 
-        if (!lastSearchKey) return accObject[searchKey]
+        if (!lastSearchKey) return thisValue
+        return thisValue 
     }, input)
 }
 
