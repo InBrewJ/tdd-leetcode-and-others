@@ -21,6 +21,9 @@
 // the value of 'two'
 
 const valueByPathFor = (input = {}, path) => {
+    if (!!!input || !!!path) {
+        return undefined
+    }
     // split the path by the .
     const searchKeys = path.split('.')
 
@@ -38,14 +41,11 @@ const valueByPathFor = (input = {}, path) => {
 }
 
 const valueByPathReduce = (input = {}, path = "") => {
-    if (!!input || !!path) {
+    if (!!!input || !!!path) {
         return undefined
     }
-    return path.split('.').reduce((accObject, searchKey, i, searchKeys) => {
-        const lastSearchKey = i === searchKeys.length - 1
-        const thisValue = accObject[searchKey]
-        if (!lastSearchKey) return thisValue
-        return thisValue 
+    return path.split('.').reduce((accObject, searchKey) => {
+        return accObject[searchKey] 
     }, input)
 }
 
