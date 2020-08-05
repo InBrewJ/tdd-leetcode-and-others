@@ -38,6 +38,9 @@ const valueByPathFor = (input = {}, path) => {
 }
 
 const valueByPathReduce = (input = {}, path = "") => {
+    if (!!input || !!path) {
+        return undefined
+    }
     return path.split('.').reduce((accObject, searchKey, i, searchKeys) => {
         const lastSearchKey = i === searchKeys.length - 1
         const thisValue = accObject[searchKey]
