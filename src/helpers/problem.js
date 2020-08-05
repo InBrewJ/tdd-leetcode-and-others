@@ -20,7 +20,7 @@
 // and then we've reached the end of the searchKeys array, so return the 
 // the value of 'two'
 
-const valueByPath = (input = {}, path) => {
+const valueByPathFor = (input = {}, path) => {
     // split the path by the .
     const searchKeys = path.split('.')
 
@@ -30,16 +30,26 @@ const valueByPath = (input = {}, path) => {
         const currentSk = searchKeys[i]
         const lastSearchKey = i === searchKeys.length-1
         const found = currentObject[currentSk]
-        if (typeof found === 'object' && !lastSearchKey) {
-            currentObject = found   
-        } else {
-            return found
-        }
-        
+        if (lastSearchKey && found) return found 
+        if (!lastSearchKey) currentObject = found   
     }
 
     return undefined
 }
+
+const valueByPathReduce = (input = {}, path = "") => {
+    // split the path by the .
+    const searchKeys = path.split('.')
+
+    return searchKeys.reduce((accObject, searchKey, i) => {
+        const lastSearchKey = i === searchKeys.length-1
+        const thisValue = accObject[searchKey]
+        if (lastSearchKey && thisValue) return thisValue 
+        if (!lastSearchKey) return accObject[searchKey]
+    }, input)
+}
+
+const valueByPath = valueByPathReduce
 
 module.exports = {
     valueByPath

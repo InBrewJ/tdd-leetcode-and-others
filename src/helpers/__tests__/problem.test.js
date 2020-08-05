@@ -27,7 +27,21 @@ describe("valueByPath", () => {
         expect(valueByPath(input,path)).toEqual(expected)
     })
 
-    it('should return undefined if a key is not found', () => {
+    it('should find correct value at the third level', () => {
+        const input = {
+            '1': {
+                '2': {
+                    '3': '4' 
+                }
+            },
+            '5': '6'
+        }
+        const path = '1.2.3'
+        const expected = '4'
+        expect(valueByPath(input,path)).toEqual(expected)
+    })
+
+    it('should return undefined if a key is not found - key does not exist', () => {
         const input = {
             'one': {
                 'two': 'three'
@@ -39,7 +53,7 @@ describe("valueByPath", () => {
         expect(valueByPath(input,path)).toEqual(expected)
     })
 
-    it.only('should return undefined if a key is not found', () => {
+    it('should return undefined if a key is not found - key has no value', () => {
         const input = {
             'one': {
                 'two': 'three'
