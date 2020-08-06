@@ -1,51 +1,40 @@
 var https = require('https')
 
-const ENDPOINT_API = '{{secret}}'
-const ENDPOINT_PATH = '{{secret}}'
-const API_KEY = '{{secret}}'
-const AUTH_HEADER = '{{x-api-key}}'
+const API_KEY = process.env.GET_ADDRESS_IO_API_KEY
 
-var options = {
-  headers: {
-    'x-api-key': API_KEY
-  },
-  host: ENDPOINT_API,
-  path: ENDPOINT_PATH
-}
-
-function get(req, res) {
-  console.log(req.params)
+function get(req, ourResponse) {
+  console.log(req.query.PostCode)
+  const queryPostCode = req.query.PostCode
   // add our postcode validation (later)
 
-  // contact ENDPOINT_API with a postcode from req.params using http
+  // contact ENDPOINT_API with a postcode from req.params using https
+
+  let ENDPOINT_API = `https://api.getAddress.io/find/${queryPostCode}?api-key=${API_KEY}`
 
   try {
-    let hackneyAPIReq = https.get(options, (apiRes) => {
+    https.get(ENDPOINT_API, (apiRes) => {
       console.log('STATUS: ' + apiRes.statusCode)
-      console.log('HEADERS: ' + JSON.stringify(apiRes.headers))
-      //   console.log('After hreq: ', apiRes)
 
-      // Buffer the body entirely for processing as a whole.
-      var bodyChunks = []
-      apiRes.on('end', function () {
-        var body = Buffer.concat(bodyChunks)
-        console.log('BODY: ' + body)
-        // Response from OUR endpoint
-        res.json({
-          data: {
-            addresses: ['anything']
-          }
+      let data = ''
+
+      // A chunk of data has been recieved.
+      apiRes.on('data', (chunk) => {
+        data += chunk
+      })
+
+      // The whole response has been received. Print out the result.
+      apiRes.on('end', () => {
+        ourResponse.json({
+          data
         })
       })
     })
   } catch (e) {
     console.error('error! ', e)
-    res.json({
-      error: 'Could not contact the Hackney API'
+    ourResponse.json({
+      error: 'Could not contact getAddress.io'
     })
   }
-
-  // return the response from ENDPOINT_URL as our response
 }
 
 module.exports = {
