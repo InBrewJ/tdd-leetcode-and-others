@@ -11,9 +11,9 @@ describe('"Container With Most Water" from LeetCode', () => {
     expect(maxArea(heights)).toEqual(6)
   })
 
-  test('[1,1,3,4,2,1,4] should return 16', () => {
+  test('[1,1,3,4,2,1,4] should return 12', () => {
     const heights = [1, 1, 3, 4, 2, 1, 4]
-    expect(maxArea(heights)).toEqual(16)
+    expect(maxArea(heights)).toEqual(12)
   })
 
   test('[4,2,1,1,3,3,3] should return 18', () => {

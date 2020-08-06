@@ -16,27 +16,22 @@ var maxArea = function (height) {
   // From ltr, find the next max
 
   const endIndex = height.length
-  let areas = []
+  let maxArea = 0
 
   const getArea = (left, right) => {
     const distanceBetween = right - left
     return Math.min(height[left], height[right]) * distanceBetween
   }
 
-  // const getArea = (lastIndex, firstIndex) => {
-  //   distanceBetween = Math.clip(lastIndex - firstIndex, 0, endIndex)
-  //   return Math.min(height[lastIndex], height[firstIndex]) * distanceBetween
-  // }
-
   for (let l = 0; l < endIndex; l++) {
     for (let r = l + 1; r < endIndex; r++) {
-      areas.push(getArea(l, r))
+      // areas.push(getArea(l, r))
+      let thisArea = getArea(l, r)
+      maxArea = thisArea > maxArea ? thisArea : maxArea
     }
   }
 
-  console.log('areas :: ', areas)
-
-  return Math.max(...areas)
+  return maxArea
 }
 
 module.exports = {
